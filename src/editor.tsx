@@ -39,6 +39,7 @@ const buildEditor = (
         stroke: strokeColor
       })
       canvas.add(object)
+      return object;
     },
     addRectangle: () => {
       const object = new fabric.Rect({
@@ -47,6 +48,7 @@ const buildEditor = (
         stroke: strokeColor
       })
       canvas.add(object)
+      return object;
     },
     addLine: () => {
       const object = new fabric.Line(LINE.points, {
@@ -54,12 +56,14 @@ const buildEditor = (
         stroke: strokeColor
       })
       canvas.add(object)
+      return object;
     },
     addText: (text: string) => {
       // use stroke in text fill, fill default is most of the time transparent
       const object = new fabric.Textbox(text, { ...TEXT, fill: strokeColor })
       object.set({ text: text })
       canvas.add(object)
+      return object
     },
     updateText: (text: string) => {
       const objects: any[] = canvas.getActiveObjects()
