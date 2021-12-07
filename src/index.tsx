@@ -16,28 +16,6 @@ const FabricJSCanvas = ({ className, onReady, isMobile }: Props) => {
   const canvasElParent = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (isMobile) {
-      const canvas = new fabric.Canvas(canvasEl.current)
-      const setCurrentDimensions = () => {
-        canvas.setHeight(canvasElParent.current?.clientHeight || 0)
-        canvas.setWidth(canvasElParent.current?.clientWidth || 0)
-        canvas.renderAll()
-      }
-      const resizeCanvas = () => {
-        setCurrentDimensions()
-      }
-      setCurrentDimensions()
-
-      window.addEventListener('resize', resizeCanvas, false)
-
-      if (onReady) {
-        onReady(canvas)
-      }
-
-      return () => {
-        canvas.dispose()
-        window.removeEventListener('resize', resizeCanvas)
-      }
-    } else {
       const staticCanvas = new fabric.StaticCanvas(canvasEl.current)
       const setCurrentDimensions = () => {
         staticCanvas.setHeight(canvasElParent.current?.clientHeight || 0)
@@ -57,6 +35,28 @@ const FabricJSCanvas = ({ className, onReady, isMobile }: Props) => {
 
       return () => {
         staticCanvas.dispose()
+        window.removeEventListener('resize', resizeCanvas)
+      }
+    } else {
+      const canvas = new fabric.Canvas(canvasEl.current)
+      const setCurrentDimensions = () => {
+        canvas.setHeight(canvasElParent.current?.clientHeight || 0)
+        canvas.setWidth(canvasElParent.current?.clientWidth || 0)
+        canvas.renderAll()
+      }
+      const resizeCanvas = () => {
+        setCurrentDimensions()
+      }
+      setCurrentDimensions()
+
+      window.addEventListener('resize', resizeCanvas, false)
+
+      if (onReady) {
+        onReady(canvas)
+      }
+
+      return () => {
+        canvas.dispose()
         window.removeEventListener('resize', resizeCanvas)
       }
     }
