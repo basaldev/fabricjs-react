@@ -63,9 +63,7 @@ const FabricJSCanvas = ({ className, onReady, isMobile }: Props) => {
   }, [])
   return (
     <div ref={canvasElParent} className={className}>
-      <canvas ref={canvasEl} style={{
-        background: isMobile ? "#EDEDED" : "white"
-      }}/>
+      <canvas ref={canvasEl} />
     </div>
   )
 }
